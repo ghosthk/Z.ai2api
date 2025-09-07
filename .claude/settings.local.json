@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__browsermcp__browser_navigate"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

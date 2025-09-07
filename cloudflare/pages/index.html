@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z.ai API 代理 - 直接访问版本</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 40px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+        .status {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .status h2 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+        .api-section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .api-section h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        .endpoint {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .endpoint h3 {
+            margin: 0 0 8px 0;
+            color: #495057;
+        }
+        .endpoint code {
+            background: #e9ecef;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9em;
+        }
+        .method {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8em;
+            margin-right: 8px;
+        }
+        .method.get { background: #28a745; }
+        .method.post { background: #007bff; }
+        .success {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .error {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+            color: #7f8c8d;
+        }
+        .direct-access {
+            background: #e8f5e8;
+            border: 2px solid #27ae60;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .direct-access h3 {
+            color: #27ae60;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Z.ai API 代理</h1>
+            <p>直接访问版本 - 推荐使用</p>
+        </div>
+
+        <div class="direct-access">
+            <h3>🎯 直接使用 Workers 服务（推荐）</h3>
+            <p>Pages 代理可能存在问题，建议直接使用 Workers 服务：</p>
+            <div id="direct-status">检查服务状态...</div>
+        </div>
+
+        <div class="status">
+            <h2>📊 服务状态</h2>
+            <div id="status-content">正在检查服务状态...</div>
+        </div>
+
+        <div class="api-section">
+            <h2>🔗 推荐的 API 端点</h2>
+            
+            <div class="endpoint">
+                <h3><span class="method get">GET</span>健康检查</h3>
+                <p>检查服务是否正常运行</p>
+                <code>GET https://zai2api.ytxwz.workers.dev/healthz</code>
+            </div>
+
+            <div class="endpoint">
+                <h3><span class="method get">GET</span>模型列表</h3>
+                <p>获取所有可用的 AI 模型</p>
+                <code>GET https://zai2api.ytxwz.workers.dev/v1/models</code>
+            </div>
+
+            <div class="endpoint">
+                <h3><span class="method post">POST</span>聊天完成</h3>
+                <p>发送聊天请求，支持流式输出和工具调用</p>
+                <code>POST https://zai2api.ytxwz.workers.dev/v1/chat/completions</code>
+            </div>
+        </div>
+
+        <div class="api-section">
+            <h2>📝 使用示例</h2>
+            
+            <h4>获取模型列表：</h4>
+            <pre style="background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 6px; overflow-x: auto;">
+curl -X GET "https://zai2api.ytxwz.workers.dev/v1/models" \
+  -H "Content-Type: application/json"</pre>
+
+            <h4>发送聊天请求：</h4>
+            <pre style="background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 6px; overflow-x: auto;">
+curl -X POST "https://zai2api.ytxwz.workers.dev/v1/chat/completions" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "GLM-4.5",
+    "messages": [
+      {"role": "user", "content": "你好！"}
+    ]
+  }'</pre>
+
+            <h4>第三方软件配置：</h4>
+            <ul>
+                <li>API 地址：<code>https://zai2api.ytxwz.workers.dev</code></li>
+                <li>API Key：留空或使用任意值</li>
+                <li>模型：<code>GLM-4.5</code></li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>💡 提示：本代理服务完全兼容 OpenAI API 格式，可以直接替换 OpenAI 的 API 地址使用。</p>
+            <p>📍 部署在 Cloudflare Workers，全球访问都很快。</p>
+            <p>🔗 如果 Pages 代理有问题，请直接使用上面的 Workers 地址。</p>
+        </div>
+    </div>
+
+    <script>
+        // 检查服务状态
+        async function checkServiceStatus() {
+            const statusContent = document.getElementById('status-content');
+            const directStatus = document.getElementById('direct-status');
+            const workerUrl = 'https://zai2api.ytxwz.workers.dev';
+            
+            try {
+                // 测试健康检查
+                const healthResponse = await fetch(workerUrl + '/healthz');
+                const healthOk = healthResponse.ok;
+                
+                // 测试模型列表
+                const modelsResponse = await fetch(workerUrl + '/v1/models');
+                const modelsOk = modelsResponse.ok;
+                
+                if (healthOk && modelsOk) {
+                    const modelsData = await modelsResponse.json();
+                    const modelCount = modelsData.data ? modelsData.data.length : 0;
+                    
+                    const successHtml = `
+                        <div class="success">
+                            ✅ Workers 服务正常运行<br>
+                            📊 可用模型：${modelCount} 个<br>
+                            📍 地址：${workerUrl}
+                        </div>
+                    `;
+                    
+                    statusContent.innerHTML = successHtml;
+                    directStatus.innerHTML = successHtml;
+                } else {
+                    throw new Error('后端服务异常');
+                }
+            } catch (error) {
+                const errorHtml = `
+                    <div class="error">
+                        ❌ 后端服务异常<br>
+                        🔍 错误信息：${error.message}<br>
+                        📍 请检查网络连接或稍后重试
+                    </div>
+                `;
+                
+                statusContent.innerHTML = errorHtml;
+                directStatus.innerHTML = errorHtml;
+            }
+        }
+
+        // 页面加载时检查状态
+        checkServiceStatus();
+        
+        // 每30秒更新一次状态
+        setInterval(checkServiceStatus, 30000);
+    </script>
+</body>
+</html>

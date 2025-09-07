@@ -1,0 +1,8 @@
+# Cloudflare Pages 重定向规则
+# API 请求通过函数处理，其他返回主页
+
+# API 路由 - 通过函数处理 (不使用重定向)
+# /healthz 和 /v1/* 会被 functions/[[path]].js 捕获处理
+
+# 主页
+/  /index.html  200
